@@ -2,6 +2,10 @@ import io
 
 import nltk
 
+nltk.download('words')
+nltk.download('punkt')                       # tokenizer
+nltk.download('averaged_perceptron_tagger')  # part-of-speech tagger
+nltk.download('maxent_ne_chunker')           # named entity chunker
 pos_tagger = nltk.tag.PerceptronTagger()
 
 
