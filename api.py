@@ -8,6 +8,7 @@ from schematics.types.compound import ListType, ModelType
 from name_extractor import extract_person_names
 
 DEVELOPMENT_MODE = os.environ.get('DEVELOP') == 'true'
+PORT = int(os.environ.get('PORT', 5000))
 
 app = Flask(__name__)
 
@@ -28,4 +29,4 @@ def extract_names():
 
 
 if __name__ == '__main__':
-    app.run(debug=DEVELOPMENT_MODE)
+    app.run(host='0.0.0.0', debug=DEVELOPMENT_MODE, port=PORT)
