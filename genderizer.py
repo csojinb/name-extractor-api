@@ -1,21 +1,21 @@
 import string
 
-from genderize import Genderize
-import nltk
+from gender_detector import GenderDetector
 
 
 def predict_gender(name_phrase):
-    # note: without an API key, this API is limited to 1000 requests/day
-    genderizer = Genderize(user_agent='GenderizeDocs/0.0', api_key='')
+    detector = GenderDetector(country='us', unknown_value='')
 
-    names = nltk.word_tokenize(name_phrase)
-    if not names:
-        return ''
+    names = _strip_punctuation(name_phrase).split(' ')
+    genders = [g for g in [detector.guess(name) for name in names] if g]
 
-    genderized = genderizer.get(names)
+    if genders and all(gender == 'male' for gender in genders):
+        return 'male'
+    if any(gender == 'female' for gender in genders):
+        return 'female'
+    return ''
 
-    return _select_result_with_highest_count(genderized).get('gender', '')
 
-
-def _select_result_with_highest_count(genderized):
-    return sorted(genderized, key=lambda x: x.get('count'), reverse=True)[0]
+def _strip_punctuation(text):
+    # assumes ASCII input
+    return text.translate(string.maketrans('', ''), string.punctuation)

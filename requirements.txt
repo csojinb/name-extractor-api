@@ -1,6 +1,6 @@
 flask
 flask-cors
-genderize
+gender-detector
 nltk
 numpy
 unidecode
