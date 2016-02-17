@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from schematics.models import Model
 from schematics.types import StringType
 from schematics.types.compound import ListType, ModelType
@@ -13,6 +14,7 @@ DEVELOPMENT_MODE = os.environ.get('DEVELOP') == 'true'
 PORT = int(os.environ.get('PORT', 5000))
 
 app = Flask(__name__)
+CORS(app)
 
 
 class RequestData(Model):
