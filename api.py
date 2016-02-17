@@ -4,8 +4,10 @@ from flask import Flask, request, jsonify
 from schematics.models import Model
 from schematics.types import StringType
 from schematics.types.compound import ListType, ModelType
+from unidecode import unidecode
 
 from name_extractor import extract_person_names
+from genderize import predict_gender
 
 DEVELOPMENT_MODE = os.environ.get('DEVELOP') == 'true'
 PORT = int(os.environ.get('PORT', 5000))
@@ -22,8 +24,8 @@ def extract_names():
     request_data = RequestData(request.json)
     request_data.validate()
 
-    names = [{"name": name, "gender": ""}
-             for name in extract_person_names(request_data.text)]
+    names = [{"name": name, "gender": predict_gender(name)}
+             for name in extract_person_names(unidecode(request_data.text))]
 
     return jsonify({"names": names})
 
