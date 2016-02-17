@@ -1,4 +1,6 @@
 flask
+genderize
 nltk
 numpy
+unidecode
 schematics
