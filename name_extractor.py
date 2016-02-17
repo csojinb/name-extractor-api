@@ -2,6 +2,8 @@ import io
 
 import nltk
 
+from utils import flatmap
+
 nltk.download('words')
 nltk.download('punkt')                       # tokenizer
 nltk.download('averaged_perceptron_tagger')  # part-of-speech tagger
@@ -15,7 +17,7 @@ def extract_person_names(text):
     tagged_sentences = [pos_tagger.tag(sentence) for sentence in tokenized_sentences]
     chunked_sentences = nltk.ne_chunk_sents(tagged_sentences)
 
-    return set(_flat_map(extract_person_names_from_tree(tree)
+    return set(flatmap(extract_person_names_from_tree(tree)
                          for tree in chunked_sentences))
 
 
@@ -30,10 +32,6 @@ def extract_person_names_from_tree(tree):
                 names.extend(extract_person_names_from_tree(child))
 
     return names
-
-
-def _flat_map(list_of_lists):
-    return [item for sublist in list_of_lists for item in sublist]
 
 
 if __name__ == '__main__':
