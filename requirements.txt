@@ -1,5 +1,5 @@
 flask
-gender-detector
+genderize
 nltk
 numpy
 unidecode

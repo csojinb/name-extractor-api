@@ -7,7 +7,7 @@ from schematics.types.compound import ListType, ModelType
 from unidecode import unidecode
 
 from name_extractor import extract_person_names
-from genderize import predict_gender
+from genderizer import predict_gender
 
 DEVELOPMENT_MODE = os.environ.get('DEVELOP') == 'true'
 PORT = int(os.environ.get('PORT', 5000))
